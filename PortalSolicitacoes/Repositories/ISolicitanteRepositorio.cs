@@ -5,6 +5,7 @@ namespace PortalSolicitacoes.Repositories
     public interface ISolicitanteRepositorio
     {
         List<SolicitanteModel> ListarTodos();
-        SolicitanteModel? BuscarPorEmail(string email);
+        SolicitanteModel? BuscarPorNome(string nome);
+        int CriarEObterId(string nome);
     }
 }

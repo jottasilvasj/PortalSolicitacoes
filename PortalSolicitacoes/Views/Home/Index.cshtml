@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<PortalSolicitacoes.Models.ChamadoModel>
+
+@{
+    ViewData["Title"] = "Solicitações";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Portal de Solicitações</h2>
+    <a asp-controller="Chamados" asp-action="Criar" class="btn btn-primary">+ Nova Solicitação</a>
+</div>
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["MensagemSucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Solicitante</th>
+                    <th>Tipo de Serviço</th>
+                    <th>Data Abertura</th>
+                    <th>Status</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>#@item.Id</td>
+                            <td>
+                                <strong>@item.Solicitante?.Nome</strong><br />
+                                <small class="text-muted">@item.Solicitante?.Email</small>
+                            </td>
+                            <td>@item.TipoServico</td>
+                            <td>@item.DataAbertura.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                @if (item.Status == "Aberto")
+                                {
+                                    <span class="badge bg-warning text-dark">Aberto</span>
+                                }
+                                else if (item.Status == "Finalizado")
+                                {
+                                    <span class="badge bg-success">Finalizado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Rejeitado</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <a asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">
+                                    Ver / Atender
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">Nenhuma solicitação encontrada.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

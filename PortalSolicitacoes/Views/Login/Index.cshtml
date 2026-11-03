@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Acesso ao Sistema";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4">
+        <div class="card shadow-lg border-0 rounded-lg">
+            <div class="card-header bg-dark text-white text-center py-3">
+                <h4 class="font-weight-light my-1">Portal de Solicitações</h4>
+            </div>
+            <div class="card-body p-4">
+                @if (ViewBag.MensagemErro != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @ViewBag.MensagemErro
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <form asp-action="Entrar" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" name="email" class="form-control" placeholder="operador@empresa.com" required autofocus />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Palavra-passe</label>
+                        <input type="password" name="senha" class="form-control" placeholder="••••••••" required />
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-block">Entrar no Sistema</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
