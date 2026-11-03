@@ -1,6 +1,10 @@
-﻿namespace PortalSolicitacoes.Repositories
+﻿using PortalSolicitacoes.Models;
+
+namespace PortalSolicitacoes.Repositories
 {
-    public class IChamadosRepositorio
+    public interface IChamadosRepositorio
     {
+        List<ChamadoModel> ListarTodos();
+        void Criar(ChamadoModel chamado);
     }
 }
